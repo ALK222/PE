@@ -11,6 +11,7 @@ jobs:
         run: |
           .\src\build\build_main_document.ps1
   build_latex:
+    needs: gen_documents
     runs-on: alpine
     steps:
       - name: Compile LaTeX document
