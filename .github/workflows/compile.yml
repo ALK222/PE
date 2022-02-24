@@ -2,7 +2,7 @@ name: Build document
 on: [push]
 jobs:
   gen_documents:
-    runs-on: windows
+    runs-on: windows-latest
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v1
