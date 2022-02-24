@@ -13,7 +13,6 @@ jobs:
       - name: Set up Git repository
         run: |
           Rscript -e "install.packages("https://cran.rstudio.com/bin/windows/contrib/4.1/knitr_1.37.zip",dependencies=TRUE)"
-
       - name: Generate TeX files
         shell: pwsh
         run: |
@@ -36,6 +35,5 @@ jobs:
             make
             cp -f xindy.mem /opt/texlive/texdir/bin/x86_64-linuxmusl/
             cd ../../
-
           root_file: Main.tex
           working_directory: ./docs
