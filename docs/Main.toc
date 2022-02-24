@@ -1,6 +1,0 @@
-\babel@toc {spanish}{}\relax 
-\contentsline {chapter}{\numberline {1}Abstracto}{5}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Conclusiones}{7}{chapter.2}%
-\contentsline {chapter}{Glosario}{9}{section*.2}%
-\contentsline {chapter}{Índice de figuras}{10}{chapter*.4}%
-\contentsline {chapter}{Índice de cuadros}{11}{chapter*.5}%

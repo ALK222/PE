@@ -6,34 +6,31 @@ jobs:
     env:
       working-directory: .
     steps:
-      - uses: actions/checkout@v1
-      - uses: r-lib/actions/setup-r@v1
-      - uses: r-lib/actions/setup-pandoc@v1
-      - uses: r-lib/actions/setup-tinytex@v1
-      - name: Set up Git repository
-        run: |
-          Rscript -e "install.packages("https://cran.rstudio.com/bin/windows/contrib/4.1/knitr_1.37.zip",dependencies=TRUE)"
+      - name: Set Up repo
+        uses: actions/checkout@v1
+      - name: Set Up R
+        uses: r-lib/actions/setup-r@v2
       - name: Generate TeX files
         shell: pwsh
         run: |
+          Rscript -e "install.packages('knitr',dependencies=TRUE)"
           .\src\build\build_main_document.ps1
   build_latex:
+    runs-on: ubuntu-latest
     needs: gen_documents
-    runs-on: alpine
     steps:
+      - name: Set Up repo
+        uses: actions/checkout@v1
+      - name: Show directory
+        run: |
+          ls -R
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@master
         with:
-          pre_compile: |
-            ln -sf /opt/texlive/texdir/texmf-dist/scripts/xindy/xindy.pl /opt/texlive/texdir/bin/x86_64-linuxmusl/xindy
-            ln -sf /opt/texlive/texdir/texmf-dist/scripts/xindy/texindy.pl /opt/texlive/texdir/bin/x86_64-linuxmusl/texindy
-            wget https://sourceforge.net/projects/xindy/files/xindy-source-components/2.4/xindy-kernel-3.0.tar.gz
-            tar xf xindy-kernel-3.0.tar.gz
-            cd xindy-kernel-3.0/src
-            apk add make
-            apk add clisp --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-            make
-            cp -f xindy.mem /opt/texlive/texdir/bin/x86_64-linuxmusl/
-            cd ../../
-          root_file: Main.tex
-          working_directory: ./docs
+          root_file: Estudio.tex
+          working_directory: docs
+      - name: Upload PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: PDF
+          path: ./docs/Estudio.pdf
