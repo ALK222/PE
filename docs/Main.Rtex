@@ -15,7 +15,8 @@
 \justify
 
 <<echo=FALSE, warning=FALSE>>=
-install.packages('knitr', repos='http://cran.rstudio.org')
+install.packages("https://cran.rstudio.com/bin/windows/contrib/4.1/knitr_1.37.zip",dependencies=TRUE)
+install.packages('tinytex')
 @
 
 % \abstractA

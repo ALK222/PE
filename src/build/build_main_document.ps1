@@ -25,5 +25,5 @@ if (($args.Length -eq 1) -and ($compile -eq "compile")) {
     xelatex.exe -file-line-error -interaction=nonstopmode Main.tex
     xelatex.exe -file-line-error -interaction=nonstopmode Main.tex 
     Set-Location ..
+    Set-Location ./src/build
 }
-Set-Location ./src/build
