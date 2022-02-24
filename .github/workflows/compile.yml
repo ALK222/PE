@@ -11,11 +11,12 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - uses: r-lib/actions/setup-tinytex@v1
       - name: Set up Git repository
+        run: |
+          Rscript -e 'install.packages('knitr', dependencies = TRUE)'
 
       - name: Generate TeX files
         shell: pwsh
         run: |
-          Rscript -e 'install.packages('knitr', dependencies = TRUE)'
           .\src\build\build_main_document.ps1
   build_latex:
     needs: gen_documents
