@@ -1,0 +1,32 @@
+\documentclass[twoside]{AiTeX}
+
+
+
+\title{Estructura de Computadores}
+\author{Alejandro Barrachina Argudo \\ Jaime Benedí Galdeano}
+\date{septiembre 2020}
+\begin{document}
+%\datos{facultad}{universidad}{grado}{asignatura}{subtitulo}{autor}{curso}
+\datos{Informática}{Universidad Complutense de Madrid}{Ingeniería informática}{Análisis de \textit{(WIP)}}{Probabilidad y estadística}{Alejandro Barrachina Argudo \\ Jaime Benedí Galdeano}{2022}
+\portadaApuntes
+\pagestyle{empty}
+\tableofcontents
+\pagestyle{empty}
+\justify
+
+% \input{Temas/Introduccion.tex}
+% \input{Temas/Tema_1.tex}
+% \input{Temas/Tema_2.tex}
+% \input{Temas/Tema_3.tex}
+
+
+\printglossary[title={Glosario}]
+
+\let\cleardoublepage\clearpage
+\listoffigures
+\addcontentsline{toc}{chapter}{Índice de figuras}
+\let\cleardoublepage\clearpage
+
+\listoftables
+\addcontentsline{toc}{chapter}{Índice de cuadros}
+\end{document}
