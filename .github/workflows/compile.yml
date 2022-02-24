@@ -6,11 +6,12 @@ jobs:
     env:
       working-directory: .
     steps:
+      - uses: actions/checkout@v1
+      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-tinytex@v1
       - name: Set up Git repository
-        uses: actions/checkout@v1
-        uses: r-lib/actions/setup-r@v1
-        uses: r-lib/actions/setup-pandoc@v1
-        uses: r-lib/actions/setup-tinytex@v1
+
         run: Rscript -e 'install.packages("knitr")'
       - name: Generate TeX files
         shell: pwsh
