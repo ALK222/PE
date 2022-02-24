@@ -14,6 +14,10 @@
 \pagestyle{empty}
 \justify
 
+<<echo=FALSE, warning=FALSE>>=
+install.packages('knitr', dependencies = TRUE)
+@
+
 % \abstractA
 
 \input{Capitulos/Abstracto.tex}
