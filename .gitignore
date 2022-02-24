@@ -37,3 +37,10 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# LaTeX temporary files
+*.log
+*.xdy
+*.Out
+*.aux 
+*.acn
