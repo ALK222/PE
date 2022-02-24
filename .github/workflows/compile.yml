@@ -11,7 +11,7 @@ jobs:
         run: |
           .\src\build\build_main_document.ps1
   build_latex:
-    runs-on: ubuntu-latest
+    runs-on: alpine
     steps:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@master
