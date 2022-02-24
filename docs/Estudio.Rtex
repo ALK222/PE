@@ -14,10 +14,14 @@
 \pagestyle{empty}
 \justify
 
-% \input{Temas/Introduccion.tex}
-% \input{Temas/Tema_1.tex}
-% \input{Temas/Tema_2.tex}
-% \input{Temas/Tema_3.tex}
+% <<echo=FALSE, warning=FALSE>>=
+% install.packages("https://cran.rstudio.com/bin/windows/contrib/4.1/knitr_1.37.zip",dependencies=TRUE)
+% @
+
+% \abstractA
+
+\input{Capitulos/Abstracto.tex}
+\input{Capitulos/Conclusiones.tex}
 
 
 \printglossary[title={Glosario}]
