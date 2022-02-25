@@ -47,3 +47,9 @@ vignettes/*.pdf
 *.toc
 *.lot
 *.lof
+*-blx.bib
+*.acr
+*.alg
+*.bbl
+*.blg
+*.run.xml

@@ -60,10 +60,12 @@
 \newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
 
 \usepackage{alltt}
+\usepackage[style=ieee,backend=bibtex,sorting=ynt,defernumbers=true]{biblatex} 
+\addbibresource{references.bib}
 
 
 
-\title{Estructura de Computadores}
+\title{Estudio sobre (A)}
 \author{Alejandro Barrachina Argudo \\ Jaime Benedí Galdeano}
 \date{septiembre 2020}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -87,6 +89,10 @@
 
 
 \printglossary[title={Glosario}]
+
+\chapter*{Bibliografía}
+\addcontentsline{toc}{chapter}{Bibliografía}
+\printbibliography[heading=none]
 
 \let\cleardoublepage\clearpage
 \listoffigures

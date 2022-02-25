@@ -16,6 +16,7 @@
             "tools": [
                 "xelatex",
                 "makeglossaries",
+                "bibtex",
                 "xelatex",
                 "xelatex"
             ]
@@ -29,6 +30,14 @@
                 "-file-line-error",
                 "-interaction=nonstopmode",
                 "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
             ],
             "env": {}
         },

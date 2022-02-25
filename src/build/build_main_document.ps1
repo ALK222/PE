@@ -24,6 +24,7 @@ Get-ChildItem -Recurse -Filter *.Rtex | Foreach-Object {
 if (($args.Length -eq 1) -and ($compile -eq "compile")) {
     xelatex.exe -file-line-error -interaction=nonstopmode Estudio.tex
     makeglossaries.exe docs/Estudio 
+    bibtex.exe docs/Estudio
     xelatex.exe -file-line-error -interaction=nonstopmode Estudio.tex
     xelatex.exe -file-line-error -interaction=nonstopmode Estudio.tex 
     Set-Location ..
