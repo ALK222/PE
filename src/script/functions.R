@@ -4,15 +4,20 @@
 
 
 # Librerias
-library(dplyr)
-library(ggplot2)
-library(gridExtra)
+library(dplyr) # Necesario para el operador %>%
+library(ggplot2) # Necesario para el generador de gráficos
 
 options(OutDec = ",")
 
 
 # Funciones que usaremos a lo largo del documento
-calculo_moda <- function(data) {
+
+#' get_mode_name
+#' @description Función que saca el nombre de la moda del dataframe
+#' @param data Dataframe con los datos a analizar.
+#' Tendrá un valor "Causa" y un valor "Total"
+#' @return El nombre de la mayor causa de mortalidad del dataframe
+get_mode_name <- function(data) {
     trimmed_data <- data %>%
         group_by(Causa) %>%
         summarise(total = sum(as.numeric(Total)))
@@ -20,10 +25,18 @@ calculo_moda <- function(data) {
     return(subset(trimmed_data, total == max(trimmed_data$total))) # nolint
 }
 
-diagrama_barras <- function(data_set) {
-    moda <- filter(data_set, Causa == men_moda$Causa) # nolint
+#' gen_histogram
+#' @description Función que genera un histograma horizontal
+#' dado un dataframe
+#' @param data_set Dataframe con el conjunto de datos.
+#' @param moda Moda sobre la que hacer el histograma
+#' Tendrá un valor "Causa", un valor "Total", un valor "Edad" y un valor "Sexo"
+gen_histogram <- function(data_set, nombre_moda) {
+    moda <- filter(data_set, Causa == nombre_moda) # nolint
     p <- ggplot(moda, aes(x = Edad, y = as.numeric(Total))) +
         geom_bar(stat = "identity")
+    p <- p + ggtitle(paste(nombre_moda, data_set$Sexo, sep = ", "))
+    p <- p + labs(y = "Total de defunciones")
     p + coord_flip() # nolint
 }
 
@@ -53,11 +66,11 @@ women_media <- mean(as.numeric(women_data$Total))
 message("Media mujeres: ", women_media)
 
 ## Moda
-men_moda <- calculo_moda(men_data)
+men_moda <- get_mode_name(men_data)
 
 message("Causa más recurrente en hombres: ", men_moda$Causa)
 
-women_moda <- calculo_moda(women_data)
+women_moda <- get_mode_name(women_data)
 
 message("Causa más recurrente en mujeres: ", women_moda$Causa)
 
@@ -83,9 +96,9 @@ message("Error estandar en datos de mujeres: ", women_se)
 
 ## Gráficos
 ## Dado el gran número de datos, nos centraremos en la medida que más defunciones acumula # nolint
-diagrama_barras(men_data)
+gen_histogram(men_data, men_moda$Causa)
 
-diagrama_barras(women_data)
+gen_histogram(women_data, women_moda$Causa)
 
 
 ## Límite inferior y superior
@@ -134,12 +147,13 @@ mu_sub_cero <- 10000
 # Calculamos la parte derecha
 right_part <- z_alfa * (men_sd / sqrt(length(men_data$Total)))
 
-if (men_media < mu_sub_cero - right_part) {
-    message("Se rechaza la hipótesis, por lo tanto se debería bajar el número de afectados para que sea más efectiva la campaña") # nolint
+resultado_hipotesis_hombres <- if (men_media < mu_sub_cero - right_part) {
+    "Se rechaza la hipótesis, por lo tanto se debería bajar el número de afectados para que sea más efectiva la campaña" # nolint
 } else {
-    message("Se acepta la hipótesis nula, por lo tanto la campaña puede ser efectiva") # nolint
+    "Se acepta la hipótesis nula, por lo tanto la campaña puede ser efectiva"
 }
 
+message(resultado_hipotesis_hombres)
 
 # Haremos otra hipótesis para una supuesta campaña enfocada en este caso al
 # sector femenino de la población. Utilizaremos una metodología distinta.
@@ -158,8 +172,10 @@ cuasivarianza <- var(as.numeric(women_data$Total))
 
 left_part <- ((length(women_data$Total) - 1) * cuasivarianza) / (sigma_cero^2)
 
-if (left_part > ji_cuadrado) {
-    message("Se rechaza la hipótesis, por lo tanto se debería bajar el número de afectados para que sea más efectiva la campaña") # nolint
+resultado_hipotesis_mujeres <- if (left_part > ji_cuadrado) {
+    "Se rechaza la hipótesis, por lo tanto se debería bajar el número de afectados para que sea más efectiva la campaña" # nolint
 } else {
-    message("Se acepta la hipótesis nula, por lo tanto la campaña puede ser efectiva") # nolint
+    "Se acepta la hipótesis nula, por lo tanto la campaña puede ser efectiva"
 }
+
+message(resultado_hipotesis_mujeres)
