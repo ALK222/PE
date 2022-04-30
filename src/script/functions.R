@@ -34,10 +34,12 @@ get_mode_name <- function(data) {
 gen_histogram <- function(data_set, nombre_moda) {
     moda <- filter(data_set, Causa == nombre_moda) # nolint
     p <- ggplot(moda, aes(x = Edad, y = as.numeric(Total))) +
-        geom_bar(stat = "identity")
-    p <- p + ggtitle(paste(nombre_moda, data_set$Sexo, sep = ", "))
-    p <- p + labs(y = "Total de defunciones")
-    p + coord_flip() # nolint
+        geom_bar(stat = "identity") +
+        labs(
+            title = paste(nombre_moda, data_set$Sexo, sep = ", "),
+            y = "Total de defunciones"
+        ) +
+        coord_flip() # en horizontal se ven los datos más claros
 }
 
 # Asumiremos un 95% de confianza
