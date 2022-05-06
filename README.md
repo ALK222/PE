@@ -13,3 +13,4 @@ Práctica en R para la asignatura Probabilidad y estadística de la UCM (Ingenie
 Para funcions.R solo necesitas una instalación de R y ejecutar o bien `R` o bien `rscript`. Son necesarias las librerias `ggplot2` y `dplyr`.
 
 Para generar la documentación necesitaras las librerías `knitr`. Ejecuta `make` y el makefile se encargará del resto.
+En caso de no disponer de make, hay dos scripts en Powershell y bash para su compilación
