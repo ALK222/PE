@@ -47,7 +47,7 @@ z_alfa_medio <- 1.96
 
 # Análisis de una variable
 data <- read.csv2(
-    file = "../../resources/49075bsc.csv",
+    file = "../resources/49075bsc.csv",
     header = TRUE,
 )
 

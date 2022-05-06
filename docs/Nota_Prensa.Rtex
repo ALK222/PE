@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{ragged2e}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{2ºD (G.I.I) Facultad de Informática UCM}
+\lhead{\today}
+\rfoot{\thepage}
+
+\title{Nota_Prensa}
+\author{Alejandro Barrachina Argudo \\
+        Jaime Benedí Galdeano}
+
+\begin{document}
+
+<<eval = TRUE, include = FALSE>>=
+    library(dplyr) # Necesario para el operador %>%
+    library(ggplot2) # Necesario para el generador de gráficos
+    options(OutDec = ",")
+    get_mode_name <- function(data) {
+    trimmed_data <- data %>%
+        group_by(Causa) %>%
+        summarise(total = sum(as.numeric(Total)))
+
+    return(subset(trimmed_data, total == max(trimmed_data$total))) # nolint
+    }
+
+    gen_histogram <- function(data_set, nombre_moda) {
+    moda <- filter(data_set, Causa == nombre_moda) # nolint
+    p <- ggplot(moda, aes(x = Edad, y = as.numeric(Total))) +
+        geom_bar(stat = "identity") +
+        labs(
+            title = paste(nombre_moda, data_set$Sexo, sep = ", "),
+            y = "Total de defunciones"
+        ) +
+        coord_flip() # en horizontal se ven los datos más claros
+    }
+    data <- read.csv2(
+    file = "../resources/49075bsc.csv",
+    header = TRUE,
+)
+    names(data) <- c("Causa", "Sexo", "Edad", "Periodo", "Total")
+
+
+men_data <- subset(data, Sexo == "Hombres")
+men_media <- mean(as.numeric(men_data$Total))
+women_data <- subset(data, Sexo == "Mujeres")
+women_media <- mean(as.numeric(women_data$Total))
+men_moda <- get_mode_name(men_data)
+women_moda <- get_mode_name(women_data)
+men_sd <- sd(as.numeric(men_data$Total))
+women_sd <- sd(as.numeric(women_data$Total))
+men_se <- men_sd / sqrt(length(men_data$Total))
+women_se <- women_sd / sqrt(length(women_data$Total))
+@
+    \begin{center}
+        {\huge\textbf{Los peligros de la salud del día de hoy y de mañana}}
+
+    \textcolor{gray}{Realizado por Alejandro Barrachina y Jaime Benedí}
+    \end{center}
+    \justifying
+
+    \vspace{1.2\baselineskip}
+
+{
+    \Large
+    \textit{
+        El siglo XXI innegablemente ha traído consigo grandes mejoras en nuestra calidad de vida. Sin embargo, todavía nuestros cuerpos están a manos del intransigente desgaste del tiempo.
+    }
+}
+
+\vspace{1.2\baselineskip}
+
+    Hoy, más que nunca, somos conscientes de la importancia de cuidar nuestro cuerpo con deporte y una dieta variada y sana, entre otros. A pesar de saber que no es el secreto de la inmortalidad, comprendemos lo precioso que es la comodidad de una vejez que arrastra pocos problemas médicos. Pero entre el dicho y el hecho, hay un trecho. ?`Es realmente la ciudadanía consciente de esta afirmación, o la tasa de mortalidad se está viendo afectada por los malos hábitos?
+
+    Tras el análisis de una muestra poblacional de la ciudadanía española, hemos podido comprobar que, curiosamente, la mayor causa de mortalidad en hombres no coincide con la de mujeres, siendo las causas tumores y enfermedades del sistema circulatorio, respectivamente. 
+
+    Los datos generales de la muestra de \Sexpr{sum(data$Total)} personas, indican que la media de defunciones por categoria de causa en hombres ronda a los \Sexpr{round(men_media, 0)} fallecidos; las mujeres, a \Sexpr{round(women_media, 0)}. Este dato resulta poco representativo, por la distribución irregular de muertes en los distintos tipos de fallecimientos, hecho indicado por la elevada desviación típica, presentada en ambos géneros en unidades de millar de muertos.
+
+    \vspace{1.2\baselineskip}
+
+{
+    \Large
+    \textit{
+        ``Más vale malo conocido que bueno por conocer'', excepto si hablamos del cáncer.
+    }
+}
+
+\vspace{1.2\baselineskip}
+
+    Uno de los mayores asesinos de la actualidad, no perdona ni un solo día del año en tomar vidas humanas. Está claro que acabar la lucha contra el cáncer será una de las grandes victorias de este siglo, pero todavía nos sigue resultando un enemigo desconocido.
+
+    Con estos datos y la información actual del cáncer, es difícil determinar hasta qué punto la buena salud influye con la aparición de tumores. Aun así, no es una hipótesis muy desencaminada de la realidad, respaldada por grandes instituciones médicas. Incluso se cree ser un factor determinante en algunos tipos de cáncer.
+
+    Podemos observar que las mayores cifras de defunciones se sitúan en edades medias y avanzadas (obteniendo datos relevantes a partir del intervalo de los 45 a 49 años, pudiendo sugerir que el desgaste y/o la mala salud de nuestro cuerpo puede condicionar al desarrollo de tumores.
+
+    Observando la gráfica con más detenimiento, sabemos que la moda muestral de defunciones se sitúa en el intervalo de 75 a 79 años. Tomando este como valor central, vemos que hay una distribución que encajaría con el modelo de la campana de Gauss.
+
+    \vspace{1.2\baselineskip}
+
+{
+    \Large
+    \textit{
+        Las mujeres siguen liderando la media de longevidad respecto a los hombres. ?`Solo anatomía o también buenos hábitos?
+    }
+}
+
+\vspace{1.2\baselineskip}
+
+    Las enfermedades del sistema circulatorio resultan ser la principal causa de muertes entre las mujeres en España. Uno podría suponer que esto se debe a una mala salud, pero podría no ser así. Una de las principales diferencias respecto a las defunciones de los varones es la distribución. Curiosamente, las cifras tienden a acumularse en edades muy avanzadas, englobando la mayoría de datos desde el intervalo de 75 a 79 años en adelante.
+
+    Además, la moda se encuentra en el intervalo 90 a 94 años, el segundo de mayor edad en el estudio. Son longevidades muy altas, algo más que los hombres. Para una comparación visual se puede consultar las figuras \ref{fig:hist_hombres} y \ref{fig:hist_mujeres}
+
+    \vspace{1.2\baselineskip}
+
+{
+    \Large
+    \textit{Estudios recientes nos invitan a pensar que tal vez la salud física es lo único de lo que debemos preocuparnos}
+}
+
+\vspace{1.2\baselineskip}
+
+Según recientes estudios y artículos de medios de comunicación tradicionales (\href{https://www.rtve.es/noticias/20211124/cronicas-suicidio-primera-causa-muerte-jovenes-espana/2232960.shtml}{RTVE}), el suicidio es la primera causa de muerte entre la población más joven española.
+
+Viendo todos estos datos en perspectiva podemos sacar dos conclusiones:
+
+\begin{enumerate}
+    \item Hay que hacer un estudio sobre los hábitos de vida de la población española para poder reducir el número de muertos a temprana edad en determinados campos. Esto también serviría para igualar la longevidad de la población masculina frente a la femenina y tal vez para alargar la esperanza de vida de toda la población.
+    \item Hay que hacer campañas sobre la importancia de la salud mental entre jovenes y adultos por igual para evitar perdidas de vidas innecesarias.
+\end{enumerate}
+
+<<hist_hombres, fig.pos="H", fig.cap="Histograma de la moda de mortalidad en la población masculina", echo=FALSE>>=
+p = gen_histogram(men_data, men_moda$Causa)
+
+p
+@
+
+<<hist_mujeres, fig.pos="H", fig.cap="Histograma de la moda de mortalidad en la población femenina", echo=FALSE>>=
+p = gen_histogram(women_data, women_moda$Causa)
+
+p
+@
+\end{document}

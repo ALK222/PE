@@ -15,8 +15,8 @@
             "name": "pdflatex, makeglossaries, pdflatex (2x)",
             "tools": [
                 "xelatex",
-                "makeglossaries",
-                "bibtex",
+                // "makeglossaries",
+                // "bibtex",
                 "xelatex",
                 "xelatex"
             ]
