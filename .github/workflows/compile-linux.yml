@@ -13,9 +13,9 @@ jobs:
       - name: Generate TeX files
         shell: pwsh
         run: |
-          Rscript -e "install.packages('knitr',dependencies=TRUE)"
-          Rscript -e "install.packages('dplyr',dependencies=TRUE)"
-          Rscript -e "install.packages('ggplot2',dependencies=TRUE)"
+          Rscript -e "install.packages('knitr')"
+          Rscript -e "install.packages('dplyr')"
+          Rscript -e "install.packages('ggplot2')"
           cd ${{env.working-directrory}}/docs
           make Rtex
   build_latex:

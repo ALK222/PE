@@ -8,13 +8,13 @@ if ($args.Length -eq 1) {
         throw "Argumento no reconocido, ponga compile para compilar el documento o  no ponga nada."
     }
     else {
-        Set-Location ../../
+        Set-Location ../
     }
 }
 
 
 
-Set-Location docs
+Set-Location ../
 Get-ChildItem -Recurse -Filter *.Rtex | Foreach-Object {
     $FixedName = $_.FullName.Replace("\", "/")
     $Dirname = $_.FullName.Replace("\", "/").Replace(".Rtex", ".tex")
@@ -25,5 +25,4 @@ if (($args.Length -eq 1) -and ($compile -eq "compile")) {
     xelatex.exe -file-line-error -interaction=nonstopmode Estudio.tex
     xelatex.exe -file-line-error -interaction=nonstopmode Estudio.tex 
     Set-Location ..
-    Set-Location ./src/build
 }
