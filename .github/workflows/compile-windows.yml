@@ -14,6 +14,8 @@ jobs:
         shell: pwsh
         run: |
           Rscript -e "install.packages('knitr',dependencies=TRUE)"
+          Rscript -e "install.packages('dplyr',dependencies=TRUE)"
+          Rscript -e "install.packages('ggplot2',dependencies=TRUE)"
           .\docs\build\build_main_document.ps1
   build_latex:
     runs-on: ubuntu-latest
