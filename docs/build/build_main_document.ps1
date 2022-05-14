@@ -18,7 +18,7 @@ Set-Location docs
 Get-ChildItem -Recurse -Filter *.Rtex | Foreach-Object {
     $FixedName = $_.FullName.Replace("\", "/")
     $Dirname = $_.FullName.Replace("\", "/").Replace(".Rtex", ".tex")
-    C:/"Program Files"/R/R-4.1.2/bin/x64/R.exe -e "library(knitr);knit('$FixedName', '$Dirname')" 
+    R.exe -e "library(knitr);knit('$FixedName', '$Dirname')" 
 }
 
 if (($args.Length -eq 1) -and ($compile -eq "compile")) {
