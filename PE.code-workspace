@@ -1,13 +1,16 @@
 {
     "folders": [
         {
-            "path": "docs"
+            "path": "docs",
+            "name": "PE-Documentation"
         },
         {
-            "path": "src"
+            "path": "src",
+            "name": "PE-Script"
         },
         {
-            "path": "resources"
+            "path": "resources",
+            "name": "PE-CSV"
         }
-    ]
+    ],
 }

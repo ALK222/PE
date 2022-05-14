@@ -1,4 +1,4 @@
-name: Build document
+name: Build document (Windows)
 on: [push]
 jobs:
   gen_documents:
@@ -14,7 +14,7 @@ jobs:
         shell: pwsh
         run: |
           Rscript -e "install.packages('knitr',dependencies=TRUE)"
-          .\src\build\build_main_document.ps1
+          .\docs\build\build_main_document.ps1
   build_latex:
     runs-on: ubuntu-latest
     needs: gen_documents
@@ -27,10 +27,10 @@ jobs:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@master
         with:
-          root_file: Estudio.tex
+          root_file: Nota_Prensa.tex
           working_directory: docs
       - name: Upload PDF
         uses: actions/upload-artifact@v2
         with:
           name: PDF
-          path: ./docs/Estudio.pdf
+          path: ./docs/Nota_Prensa.pdf
